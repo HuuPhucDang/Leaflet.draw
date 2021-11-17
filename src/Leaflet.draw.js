@@ -71,7 +71,26 @@ L.Draw = {};
  *  This will allow map users to draw vectors and markers.
  *  **Please note the edit toolbar is not enabled by default.**
  */
-const lang = 'en';
+var lang = localStorage.getItem("@IDMIS:current_language");
+var polygonText = lang === 'en' ? 'Draw a polygon' : 'Vizato një poligon';
+var rectangelText = lang === 'en' ? 'Draw a rectangle' : 'Vizato një katror';
+var circleText = lang === 'en' ? 'Draw a circle' : 'Vizato një rreth';
+var deleteText = lang === 'en' ? 'No layers to delete' : 'Nuk ka shtresa për të fshirë';
+var finish = lang === 'en' ? 'Finish' : 'Përfundo';
+var deleted = lang === 'en' ? 'Delete last point' : 'Fshij pikën e fundit';
+var cancel = lang === 'en' ? 'Cancel' : 'Anullo';
+var clickShape = lang === 'en' ? 'Click to start drawing shape' : 'Kliko për të vizatuar poligonin';
+var clickPoint = lang === 'en' ? 'Click first point to close this shape' : 'Kliko pikën e fillimit për të mbyllur poligonin';
+var clickreactangle = lang === 'en' ? 'Click and drag to draw rectangle' : 'Kliko mbi hartë për të vizatuar një drejtkëndësh';
+var clickCircle = lang === 'en' ? 'Click and drag to draw circle' : 'Kliko mbi hartë për të vizatuar një rreth';
+var clickRelease = lang === 'en' ? 'Release mouse to finish drawing' : 'Lëshoni mous-in për të përfunduar vizatimin';
+var clickContinue = lang === 'en' ? 'Click to continue drawing shape' : 'Kliko për të vazhduar vizatimin';
+var radius = lang === 'en' ? 'Radius' : 'Rrezja';
+var save = lang === 'en' ? 'Save' : 'Ruaj';
+var saveChange = lang === 'en' ? 'Save changes' : 'Ruaj ndryshimet';
+var clearAll = lang === 'en' ? 'Clear all' : 'Fshij të gjitha';
+var clearLayer = lang === 'en' ? 'Clear all layers' : 'Fshij të gjitha shtresat';
+var clickRemove = lang === 'en' ? 'Click on a feature to remove' : 'Kliko mbi vizatimin për ta hequr atë';
 L.drawLocal = {
 	// format: {
 	// 	numeric: {
@@ -87,21 +106,21 @@ L.drawLocal = {
 			// ex: actions.undo  or actions.cancel
 			actions: {
 				title: 'Cancel drawing',
-				text: 'Cancel'
+				text: cancel
 			},
 			finish: {
 				title: 'Finish drawing',
-				text: 'Finish'
+				text: finish
 			},
 			undo: {
 				title: 'Delete last point drawn',
-				text: 'Delete last point'
+				text: deleted
 			},
 			buttons: {
 				polyline: 'Draw a polyline',
-				polygon: 'Draw a polygon',
-				rectangle: 'Draw a rectangle',
-				circle: 'Draw a circle',
+				polygon: polygonText,
+				rectangle: rectangelText,
+				circle: circleText,
 				marker: 'Draw a marker',
 				circlemarker: 'Draw a circlemarker'
 			}
@@ -109,9 +128,9 @@ L.drawLocal = {
 		handlers: {
 			circle: {
 				tooltip: {
-					start: 'Click and drag to draw circle.'
+					start: clickCircle
 				},
-				radius: 'Radius'
+				radius: radius
 			},
 			circlemarker: {
 				tooltip: {
@@ -125,9 +144,9 @@ L.drawLocal = {
 			},
 			polygon: {
 				tooltip: {
-					start: 'Click to start drawing shape.',
-					cont: 'Click to continue drawing shape.',
-					end: 'Click first point to close this shape.'
+					start: clickShape,
+					cont: clickContinue,
+					end: clickPoint
 				}
 			},
 			polyline: {
@@ -140,12 +159,12 @@ L.drawLocal = {
 			},
 			rectangle: {
 				tooltip: {
-					start: 'Click and drag to draw rectangle.'
+					start: clickreactangle
 				}
 			},
 			simpleshape: {
 				tooltip: {
-					end: 'Release mouse to finish drawing.'
+					end: clickRelease
 				}
 			}
 		}
@@ -154,23 +173,23 @@ L.drawLocal = {
 		toolbar: {
 			actions: {
 				save: {
-					title: 'Save changes',
-					text: 'Save'
+					title: saveChange,
+					text: save
 				},
 				cancel: {
 					title: 'Cancel editing, discards all changes',
-					text: 'Cancel'
+					text: cancel
 				},
 				clearAll: {
-					title: 'Clear all layers',
-					text: 'Clear All'
+					title: clearLayer,
+					text: clearAll
 				}
 			},
 			buttons: {
 				edit: 'Edit layers',
 				editDisabled: 'No layers to edit',
 				remove: 'Delete layers',
-				removeDisabled: 'No layers to delete'
+				removeDisabled: deleteText
 			}
 		},
 		handlers: {
@@ -182,7 +201,7 @@ L.drawLocal = {
 			},
 			remove: {
 				tooltip: {
-					text: 'Click on a feature to remove.'
+					text: clickRemove
 				}
 			}
 		}
