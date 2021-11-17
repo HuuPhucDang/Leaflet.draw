@@ -71,6 +71,7 @@ L.Draw = {};
  *  This will allow map users to draw vectors and markers.
  *  **Please note the edit toolbar is not enabled by default.**
  */
+const lang = 'en';
 L.drawLocal = {
 	// format: {
 	// 	numeric: {
